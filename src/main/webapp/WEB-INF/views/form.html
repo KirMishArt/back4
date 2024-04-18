@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New person</title>
+</head>
+<style media="screen">
+    *,
+    *:before,
+    *:after{
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    body{
+        background-color: #080710;
+    }
+    .background{
+        width: 480px;
+        height: 520px;
+        position: absolute;
+        transform: translate(-50%,-50%);
+        left: 50%;
+        top: 50%;
+    }
+    .background .shape{
+        height: 200px;
+        width: 200px;
+        position: absolute;
+        border-radius: 50%;
+    }
+    .shape:first-child{
+        background: linear-gradient(
+                #1845ad,
+                #a1cae8
+        );
+        left: -80px;
+        top: -80px;
+    }
+    .shape:last-child{
+        background: linear-gradient(
+                to right,
+                #ff512f,
+                #f09819
+        );
+        right: -30px;
+        bottom: -80px;
+    }
+    form{
+        width: 400px;
+        background-color: rgba(255,255,255,0.13);
+        position: absolute;
+        transform: translate(-50%,-50%);
+        top: 100%;
+        left: 50%;
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255,255,255,0.1);
+        box-shadow: 0 0 40px rgba(8,7,16,0.6);
+        padding: 50px 35px;
+        margin-bottom: 40px;
+    }
+    form *{
+        font-family: 'Poppins',sans-serif;
+        color: #9f9f9f;
+        letter-spacing: 0.5px;
+        outline: none;
+        border: none;
+    }
+    form h3{
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 42px;
+        text-align: center;
+    }
+
+    label{
+        display: block;
+        margin-top: 15px;
+        font-size: 16px;
+        font-weight: 500;
+    }
+    input{
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgba(255,255,255,0.07);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    select {
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgba(255,255,255,0.07);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    input[type=radio] , [type=checkbox] {
+        appearance: none;
+
+        border-radius: 100%;
+        width: 10px;
+        height: 20px;
+
+        border: 2px solid #999;
+        transition: 0.2s all linear;
+        margin-right: 20px;
+
+
+
+    }
+
+    input[type=radio]:checked {
+        border: 6px solid black;
+    }
+    input[type=checkbox]:checked {
+        border: 6px solid black;
+    }
+
+
+    ::placeholder{
+        color: #e5e5e5;
+    }
+    button{
+        margin-top: 50px;
+        width: 100%;
+        background-color: #ffffff;
+        color: #080710;
+        padding: 15px 0;
+        font-size: 18px;
+        font-weight: 600;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    textarea {
+        display: block;
+        height: 50px;
+        width: 100%;
+        background-color: rgba(255,255,255,0.07);
+        border-radius: 3px;
+        padding: 0 10px;
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+    }
+    .row {
+        display: flex;
+        flex-direction: row;
+        vertical-align: middle;
+        align-items: center;
+    }
+
+</style>
+
+
+
+<body>
+<form th:method="POST" th:action="@{/people}" th:object="${person}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/><br/>
+
+    <label for="surname">Enter surname: </label>
+    <input type="text" th:field="*{surname}" id="surname"/><br/>
+
+    <label for="second_name">Enter second name: </label>
+    <input type="text" th:field="*{second_name}" id="second_name"/><br/>
+
+    <label for="tel">Enter telephone: </label>
+    <input type="text" th:field="*{tel}" id="tel"/><br/>
+
+    <label for="email">Enter email: </label>
+    <input type="text" th:field="*{email}" id="email"/><br/>
+
+    <label for="birth">Birth date: </label>
+    <input type="date" th:field="*{birth}" id="birth"/><br/>
+
+    <div>
+        <label for="male">Male</label>
+        <input type="radio" id="male" name="gender" th:field="*{gender}" th:value="male" />
+    </div><br/>
+    <div>
+        <label for="female">Female</label>
+        <input type="radio" id="female" name="gender" th:field="*{gender}" th:value="female" />
+    </div><br/>
+
+
+    <label for="fovolang">Favorite languages:</label><br>
+    <select id="fovolang" th:field="*{fovoLang}" multiple required>
+        <option th:value="pascal">Pascal</option>
+        <option th:value="c">C</option>
+        <option th:value="cpp">C++</option>
+        <option th:value="javascript">JavaScript</option>
+        <option th:value="php">PHP</option>
+        <option th:value="python">Python</option>
+        <option th:value="java">Java</option>
+        <option th:value="haskell">Haskell</option>
+        <option th:value="clojure">Clojure</option>
+        <option th:value="prolog">Prolog</option>
+        <option th:value="scala">Scala</option>
+    </select><br><br>
+
+    <label for="bio">Biographi</label><br>
+    <textarea id="bio" name="bio" th:field="*{bio}" required></textarea>
+    <br/>
+    <label for="contract_agreement">I agree with contract:</label>
+    <input type="checkbox" id="contract_agreement" name="contract_agreement" required><br><br>
+    <br/>
+    <input type="submit" value="Save">
+
+</form>
+
+</body>
+</html>
