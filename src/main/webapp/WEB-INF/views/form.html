@@ -166,18 +166,23 @@
 <form th:method="POST" th:action="@{/people}" th:object="${person}">
     <label for="name">Enter name: </label>
     <input type="text" th:field="*{name}" id="name"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
 
     <label for="surname">Enter surname: </label>
     <input type="text" th:field="*{surname}" id="surname"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
 
     <label for="second_name">Enter second name: </label>
     <input type="text" th:field="*{second_name}" id="second_name"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('second_name')}" th:errors="*{second_name}">Name Error</div>
 
     <label for="tel">Enter telephone: </label>
     <input type="text" th:field="*{tel}" id="tel"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">Name Error</div>
 
     <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email"/><br/>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
 
     <label for="birth">Birth date: </label>
     <input type="date" th:field="*{birth}" id="birth"/><br/>

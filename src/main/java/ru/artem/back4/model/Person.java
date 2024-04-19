@@ -1,14 +1,13 @@
 package ru.artem.back4.model;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Pattern;
+//import jakarta.validation.constraints.*;
+
+import javax.validation.constraints.*;
 
 public class Person {
     private int id;
-    @NotBlank(message = "Enter the name. Use A-Z,a-z")
 
+    @NotEmpty(message = "Enter the name. Use A-Z,a-z")
     private String name;
     @NotBlank(message = "Enter the surname. Use A-Z,a-z")
     private String surname;
@@ -18,7 +17,7 @@ public class Person {
     private String tel;
     @Email(message = "Email should be valid ")
     private String email;
-    @Past(message = "")
+
     private String birth;
     private String gender;
     private String fovoLang;
