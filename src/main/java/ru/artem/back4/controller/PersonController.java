@@ -57,6 +57,10 @@ public class PersonController {
         emailCookie.setMaxAge(60 * 60 * 24 * 365);
         response.addCookie(emailCookie);
 
+        Cookie fovoLang = new Cookie("fovoLang", person.getFovoLang());
+        fovoLang.setMaxAge(60 * 60 * 24 * 365);
+        response.addCookie(fovoLang);
+
     }
     private void deleteCookies(HttpServletResponse response) {
         Cookie nameCookie = new Cookie("name", "");
@@ -78,6 +82,9 @@ public class PersonController {
         Cookie emailCookie = new Cookie("email", "");
         emailCookie.setMaxAge(0);
         response.addCookie(emailCookie);
+        Cookie fovoLang = new Cookie("fovoLang","");
+        fovoLang.setMaxAge(0);
+        response.addCookie(fovoLang);
     }
     @GetMapping()
     public String index(Model model){
