@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.artem.back4.dao.LanguageDAO;
 import ru.artem.back4.dao.PersonDAO;
 import ru.artem.back4.model.Person;
 
@@ -20,8 +21,11 @@ import javax.validation.Valid;
 @RequestMapping("/people")
 public class PersonController {
     private final PersonDAO personDAO;
+    private final LanguageDAO languageDAO;
     @Autowired
-    public PersonController(PersonDAO personDAO){this.personDAO=personDAO;}
+    public PersonController(PersonDAO personDAO, LanguageDAO languageDAO){this.personDAO=personDAO;
+        this.languageDAO = languageDAO;
+    }
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
     @PostMapping()
@@ -57,7 +61,9 @@ public class PersonController {
         emailCookie.setMaxAge(60 * 60 * 24 * 365);
         response.addCookie(emailCookie);
 
-        Cookie fovoLang = new Cookie("fovoLang", person.getFovoLang());
+        String lang=String.join(",",person.getFovoLang());
+        lang=lang.replaceAll("[^a-zA-Z0-9-]", "_");
+        Cookie fovoLang = new Cookie("fovoLang", lang);
         fovoLang.setMaxAge(60 * 60 * 24 * 365);
         response.addCookie(fovoLang);
 
@@ -82,13 +88,17 @@ public class PersonController {
         Cookie emailCookie = new Cookie("email", "");
         emailCookie.setMaxAge(0);
         response.addCookie(emailCookie);
-        Cookie fovoLang = new Cookie("fovoLang","");
+
+        Cookie fovoLang = new Cookie("fovoLang", "");
         fovoLang.setMaxAge(0);
         response.addCookie(fovoLang);
+
     }
     @GetMapping()
     public String index(Model model){
         model.addAttribute("people",personDAO.index());
+        model.addAttribute("languages", languageDAO.index());
         return "people";
     }
+
 }

@@ -3,6 +3,7 @@ package ru.artem.back4.model;
 //import jakarta.validation.constraints.*;
 
 import javax.validation.constraints.*;
+import java.util.List;
 
 public class Person {
     private int id;
@@ -22,13 +23,13 @@ public class Person {
 
     private String birth;
     private String gender;
-    private String fovoLang;
+    private List<String> fovoLang;
     private String bio;
     public Person(){
 
     }
 
-    public Person(String name, String surname, String second_name, String tel, String email, String birth, String gender, String fovoLang, String bio) {
+    public Person(String name, String surname, String second_name, String tel, String email, String birth, String gender, List<String> fovoLang, String bio) {
         this.name = name;
         this.surname = surname;
         this.second_name = second_name;
@@ -104,11 +105,11 @@ public class Person {
         this.gender = gender;
     }
 
-    public String getFovoLang() {
+    public List<String> getFovoLang() {
         return fovoLang;
     }
 
-    public void setFovoLang(String fovoLang) {
+    public void setFovoLang(List<String> fovoLang) {
         this.fovoLang = fovoLang;
     }
 

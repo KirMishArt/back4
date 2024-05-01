@@ -73,39 +73,53 @@
 </style>
 <body>
 <div class="table-container">
-<table border="1">
-  <tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Surname</th>
-    <th>Second Name</th>
-    <th>Tel</th>
-    <th>Email</th>
-    <th>Birth</th>
-    <th>Gender</th>
-    <th>Favo Lang</th>
-    <th>Bio</th>
-  </tr>
-  <tr th:each="person : ${people}">
-    <td th:text="${person.id}"></td>
-    <td th:text="${person.name}"></td>
-    <td th:text="${person.surname}"></td>
-    <td th:text="${person.second_name}"></td>
-    <td th:text="${person.tel}"></td>
-    <td th:text="${person.email}"></td>
-    <td th:text="${person.birth}"></td>
-    <td th:text="${person.gender}"></td>
-    <td th:text="${person.fovoLang}"></td>
-    <td th:text="${person.bio}"></td>
-  </tr>
-</table>
-<div/>
-
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Surname</th>
+      <th>Second Name</th>
+      <th>Tel</th>
+      <th>Email</th>
+      <th>Birth</th>
+      <th>Gender</th>
+      <th>Favo Lang</th>
+      <th>Bio</th>
+    </tr>
+    <tr th:each="person : ${people}">
+      <td th:text="${person.id}"></td>
+      <td th:text="${person.name}"></td>
+      <td th:text="${person.surname}"></td>
+      <td th:text="${person.second_name}"></td>
+      <td th:text="${person.tel}"></td>
+      <td th:text="${person.email}"></td>
+      <td th:text="${person.birth}"></td>
+      <td th:text="${person.gender}"></td>
+      <td th:text="${person.fovoLang}"></td>
+      <td th:text="${person.bio}"></td>
+    </tr>
+  </table>
+  <div/>
 <br/>
+  <div class="table-container">
+    <table border="1">
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Language</th>
+      </tr>
+      <tr th:each="lang : ${languages}">
+        <td th:text="${lang.name}"></td>
+        <td th:text="${lang.surname}"></td>
+        <td th:text="${lang.language}"></td>
+      </tr>
+    </table>
+    <div/>
+  <br/>
 
-<div class="link-container">
-  <a th:href="@{/}">Go to Main Page</a>
-</div>
+  <div class="link-container">
+    <a th:href="@{/}">Go to Main Page</a>
+  </div>
 
 
 
