@@ -25,6 +25,12 @@ public class Person {
     private String gender;
     private List<String> fovoLang;
     private String bio;
+
+
+    private String login;
+
+
+    private String password;
     public Person(){
 
     }
@@ -119,5 +125,21 @@ public class Person {
 
     public void setBio(String bio) {
         this.bio = bio;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

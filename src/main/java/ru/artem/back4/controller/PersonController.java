@@ -2,6 +2,7 @@ package ru.artem.back4.controller;
 
 //import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,20 +13,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.artem.back4.dao.LanguageDAO;
 import ru.artem.back4.dao.PersonDAO;
 import ru.artem.back4.model.Person;
+import sun.security.util.Password;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Random;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/people")
 public class PersonController {
     private final PersonDAO personDAO;
     private final LanguageDAO languageDAO;
+    private final PasswordEncoder passwordEncoder;
     @Autowired
-    public PersonController(PersonDAO personDAO, LanguageDAO languageDAO){this.personDAO=personDAO;
+    public PersonController(PersonDAO personDAO, LanguageDAO languageDAO, PasswordEncoder passwordEncoder) {
+        this.personDAO = personDAO;
         this.languageDAO = languageDAO;
+        this.passwordEncoder = passwordEncoder;
     }
+
+
+
+
+
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
     @PostMapping()
@@ -35,11 +47,29 @@ public class PersonController {
             addCookies(person, response);
             return "form";
         }
-
+        String login=generateLogin();
+        String password=generatePassword();
+        person.setLogin(login);
+        person.setPassword(passwordEncoder.encode(password));
 
         deleteCookies(response);
         personDAO.save(person);
         return "redirect:/people";
+    }
+    private String generateLogin(){
+        return UUID.randomUUID().toString();
+    }
+    private String generatePassword() {
+        // генерация пароля с использованием случайных символов
+        Random random = new Random();
+        StringBuilder password = new StringBuilder();
+
+        for (int i = 0; i < 10; i++) {
+            char c = (char) (random.nextInt(26) + 'a');
+            password.append(c);
+        }
+
+        return password.toString();
     }
     private void addCookies(Person person, HttpServletResponse response){
         Cookie nameCookie=new Cookie("name",person.getName());
