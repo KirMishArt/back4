@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.artem.back4.dao.LanguageDAO;
 import ru.artem.back4.dao.PersonDAO;
 import ru.artem.back4.model.Person;
-import sun.security.util.Password;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +41,7 @@ public class PersonController {
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
     @PostMapping()
     public String create(@ModelAttribute("person") @Valid Person person,
-                         BindingResult bindingResult, HttpServletResponse response) {
+                         BindingResult bindingResult, HttpServletResponse response,Model model) {
         if(bindingResult.hasErrors()) {
             addCookies(person, response);
             return "form";
@@ -54,10 +53,13 @@ public class PersonController {
 
         deleteCookies(response);
         personDAO.save(person);
-        return "redirect:/people";
+        model.addAttribute("login", login);
+        model.addAttribute("password", password);
+
+        return "data";
     }
     private String generateLogin(){
-        return UUID.randomUUID().toString();
+        return UUID.randomUUID().toString().substring(0,5);
     }
     private String generatePassword() {
         // генерация пароля с использованием случайных символов

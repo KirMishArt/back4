@@ -20,10 +20,10 @@ public class PersonDAO {
     }
 
     public void save(Person person){
-        jdbcTemplate.update("INSERT INTO persons (name, surname, second_name, tel, email, birth, gender, bio) VALUES (?,?,?,?,?,?,?,?)",
+        jdbcTemplate.update("INSERT INTO persons (name, surname, second_name, tel, email, birth, gender, bio,login,password) VALUES (?,?,?,?,?,?,?,?,?,?)",
                 person.getName(), person.getSurname(), person.getSecond_name(),
                 person.getTel(), person.getEmail(), person.getBirth(),
-                person.getGender(), person.getBio());
+                person.getGender(), person.getBio(),person.getLogin(),person.getPassword());
 
         int personId = jdbcTemplate.queryForObject("SELECT MAX(id) FROM persons", Integer.class);
 
