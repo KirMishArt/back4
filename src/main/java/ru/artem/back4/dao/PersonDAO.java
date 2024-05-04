@@ -38,5 +38,16 @@ public class PersonDAO {
         String lowerCaseLanguageName = languageName.toLowerCase();
         return jdbcTemplate.queryForObject("SELECT id FROM languages WHERE LOWER(name) = ?", Integer.class, lowerCaseLanguageName);
     }
+    public Person findByLogin(String login) {
+        return jdbcTemplate.queryForObject("SELECT * FROM persons WHERE login = ?",
+                new BeanPropertyRowMapper<>(Person.class), login);
+    }
+    public Person show(int id) {
+        return jdbcTemplate.query("SELECT * FROM persons WHERE id=?", new Object[]{id}, new BeanPropertyRowMapper<>(Person.class))
+                .stream().findAny().orElse(null);
+    }
+    public void update(int id, Person updatedPerson) {
+        jdbcTemplate.update("UPDATE persons SET name=?,surname=?,email=? WHERE id=?", updatedPerson.getName(),updatedPerson.getSurname(),updatedPerson.getEmail(),id);
+    }
 
 }

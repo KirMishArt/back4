@@ -170,19 +170,19 @@
 
     <label for="surname">Enter surname: </label>
     <input type="text" th:field="*{surname}" id="surname"/><br/>
-    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name Error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname Error</div>
 
     <label for="second_name">Enter second name: </label>
     <input type="text" th:field="*{second_name}" id="second_name"/><br/>
-    <div style="color:red" th:if="${#fields.hasErrors('second_name')}" th:errors="*{second_name}">Name Error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('second_name')}" th:errors="*{second_name}">Second name Error</div>
 
     <label for="tel">Enter telephone: </label>
     <input type="text" th:field="*{tel}" id="tel"/><br/>
-    <div style="color:red" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">Name Error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('tel')}" th:errors="*{tel}">Telephone Error</div>
 
     <label for="email">Enter email: </label>
     <input type="text" th:field="*{email}" id="email"/><br/>
-    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
+    <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
 
     <label for="birth">Birth date: </label>
     <input type="date" th:field="*{birth}" id="birth"/><br/>

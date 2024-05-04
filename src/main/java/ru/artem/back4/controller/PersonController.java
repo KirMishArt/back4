@@ -6,10 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.artem.back4.dao.LanguageDAO;
 import ru.artem.back4.dao.PersonDAO;
 import ru.artem.back4.model.Person;
@@ -38,6 +35,43 @@ public class PersonController {
 
     @GetMapping("/authentication")
     public String authentication(){return "authentication";}
+    @PostMapping("/authenticate")
+    public String authenticate(@RequestParam("login") String login,
+                               @RequestParam("password") String password,
+                               Model model) {
+        // Найдите пользователя в базе данных по логину
+        Person person = personDAO.findByLogin(login);
+
+        if (person != null && passwordEncoder.matches(password, person.getPassword())) {
+            // Если логин и пароль верны, перенаправьте пользователя на страницу редактирования данных
+            return "redirect:/people/" + person.getId();
+        } else {
+            // Если логин или пароль неверны, добавьте сообщение об ошибке в модель и верните страницу аутентификации
+            model.addAttribute("error", "Invalid login or password");
+            return "authentication";
+        }
+    }
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", personDAO.show(id));
+        return "show";
+    }
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", personDAO.show(id));
+        return "edit";
+    }
+
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
+                         @PathVariable("id") int id) {
+        if (bindingResult.hasErrors())
+            return "edit";
+
+        personDAO.update(id, person);
+        return "redirect:/people";
+    }
+
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
     @PostMapping()
@@ -133,5 +167,6 @@ public class PersonController {
         model.addAttribute("languages", languageDAO.index());
         return "people";
     }
+
 
 }
