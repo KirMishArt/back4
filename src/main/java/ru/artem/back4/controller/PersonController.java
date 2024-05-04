@@ -36,7 +36,8 @@ public class PersonController {
 
 
 
-
+    @GetMapping("/authentication")
+    public String authentication(){return "authentication";}
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
     @PostMapping()
