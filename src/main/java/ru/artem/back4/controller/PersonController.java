@@ -13,6 +13,7 @@ import ru.artem.back4.model.Person;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Random;
 import java.util.UUID;
@@ -57,20 +58,33 @@ public class PersonController {
         return "show";
     }
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id) {
+    public String edit(Model model, @PathVariable("id") int id, HttpSession session) {
+        // Получите данные пользователя из сессии
+        String name = (String) session.getAttribute("name");
+        String surname = (String) session.getAttribute("surname");
+        String second_name = (String) session.getAttribute("second_name");
+        String email = (String) session.getAttribute("email");
+
         model.addAttribute("person", personDAO.show(id));
         return "edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person, BindingResult bindingResult,
-                         @PathVariable("id") int id) {
+                         @PathVariable("id") int id, HttpSession session) {
         if (bindingResult.hasErrors())
             return "edit";
+
+        // Сохраните данные пользователя в сессии
+        session.setAttribute("name", person.getName());
+        session.setAttribute("surname", person.getSurname());
+        session.setAttribute("second_name", person.getSecond_name());
+        session.setAttribute("email", person.getEmail());
 
         personDAO.update(id, person);
         return "redirect:/people";
     }
+
 
     @GetMapping("/new")
     public String newPerson(@ModelAttribute("person") Person person){return "form";}
