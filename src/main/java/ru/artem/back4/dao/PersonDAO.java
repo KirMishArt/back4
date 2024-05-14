@@ -47,7 +47,7 @@ public class PersonDAO {
                 .stream().findAny().orElse(null);
     }
     public void update(int id, Person updatedPerson) {
-        jdbcTemplate.update("UPDATE persons SET name=?,surname=?,email=? WHERE id=?", updatedPerson.getName(),updatedPerson.getSurname(),updatedPerson.getEmail(),id);
+        jdbcTemplate.update("UPDATE persons SET name=?,surname=?,second_name=?,email=? WHERE id=?", updatedPerson.getName(),updatedPerson.getSurname(),updatedPerson.getSecond_name(),updatedPerson.getEmail(),id);
     }
 
 }
