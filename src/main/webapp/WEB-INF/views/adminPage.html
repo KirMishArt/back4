@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5" xmlns:th="http://www.thymeleaf.org">
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to admin page</h1>
+    <p>You are logged in as: <span sec:authentication="name"></span></p>
+    <div class="link-container">
+        <a th:href="@{/logout}">Log out</a>
+    </div>
+</div>
+</body>
+
+</html>
